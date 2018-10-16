@@ -14,6 +14,7 @@ Follow these steps to add a new Raspberry Pi to the cluster.
 1. Insert the micro SD card into the Pi and boot it up
 1. Login as the `pi` user (default password `raspberry`)
 1. Modify `/etc/dhcpcd.conf`, adding static IP address config (example below) to the bottom of the file
+1. Use `sudo raspi-config` to enable SSH server 
 1. Reboot the Pi, or shut it down so it can be connected to the cluster
 
 ### Example static IP address configuration
