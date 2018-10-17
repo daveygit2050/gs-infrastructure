@@ -1,0 +1,16 @@
+---
+- name: apt update
+  apt:
+    update_cache: yes
+  become: true
+
+- name: ensure pip is latest
+  apt:
+    name: python-pip
+    state: latest
+  become: true
+
+- name: ensure awscli is latest
+  pip:
+    name: awscli
+    state: latest
