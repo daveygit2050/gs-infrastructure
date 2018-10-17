@@ -27,7 +27,8 @@ static routers=192.168.0.1
 static domain_name_servers=192.168.0.1
 ```
 
-### Ansible bootstrap process
+### Ansible/Service Manager bootstrap process
 
+1. Generate a managed instance activation (e.g. `aws ssm create-activation --default-instance-name pi01 --iam-role ssm-service-role --registration-limit 1 --region eu-west-1`)
 1. Add entry for the new Pi to `ansible/inventories/pis`
 1. Run bootstrap (e.g. `ansible-playbook -i inventories/pis -u pi -k -l pi01 pis.yml`)
