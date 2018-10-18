@@ -1,0 +1,31 @@
+---
+- name: amazon-ssm-agent deb is present
+  get_url:
+    url: https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_arm/amazon-ssm-agent.deb
+    dest: /opt/amazon-ssm-agent.deb
+    timeout: 600
+
+- name: amazon-ssm-agent is installed
+  apt:
+    deb: /opt/amazon-ssm-agent.deb
+  become: true
+  register: amazon_ssm_agent_install
+
+- name: amazon-ssm-agent is stopped
+  service:
+    name: amazon-ssm-agent
+    state: stopped
+  when: amazon_ssm_agent_install.changed
+  become: yes
+
+- name: register with ssm
+  shell: amazon-ssm-agent -register -code "{{ activation_code }}" -id "{{ activation_id }}" -region eu-west-1
+  when: amazon_ssm_agent_install
+  become: yes
+
+- name: amazon-ssm-agent is started and enabled
+  service:
+    name: amazon-ssm-agent
+    enabled: yes
+    state: started
+  become: yes

@@ -2,3 +2,4 @@
 - hosts: pis
   roles:
   - bootstrap
+  - ssm-activation
