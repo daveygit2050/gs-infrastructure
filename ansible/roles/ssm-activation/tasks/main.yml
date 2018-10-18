@@ -20,7 +20,7 @@
 
 - name: register with ssm
   shell: amazon-ssm-agent -register -code "{{ activation_code }}" -id "{{ activation_id }}" -region eu-west-1
-  when: amazon_ssm_agent_install
+  when: amazon_ssm_agent_install.changed
   become: yes
 
 - name: amazon-ssm-agent is started and enabled
