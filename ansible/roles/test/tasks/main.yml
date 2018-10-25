@@ -1,0 +1,6 @@
+---
+- name: sl is absent
+  apt:
+    name: sl
+    state: absent
+  become: true
