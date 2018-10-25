@@ -1,4 +1,8 @@
 ---
 - hosts: 127.0.0.1
-  roles:
-  - test
+  tasks:
+  - name: sl is absent
+    apt:
+      name: sl
+      state: absent
+    become: true
