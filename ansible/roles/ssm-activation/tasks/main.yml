@@ -4,6 +4,7 @@
     url: https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_arm/amazon-ssm-agent.deb
     dest: /opt/amazon-ssm-agent.deb
     timeout: 600
+  become: true
 
 - name: amazon-ssm-agent is installed
   apt:
