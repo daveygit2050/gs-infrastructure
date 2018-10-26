@@ -1,0 +1,6 @@
+{
+  "playbook": [""],
+  "playbookurl": ["https://raw.githubusercontent.com/daveygit2050/gs-infrastructure/dev/ansible/pis-ssm.yml"],
+  "extravars": ["SSM=True"],
+  "check": ["False"]
+}

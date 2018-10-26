@@ -4,5 +4,5 @@
   - name: sl is absent
     apt:
       name: sl
-      state: absent
+      state: latest
     become: true
