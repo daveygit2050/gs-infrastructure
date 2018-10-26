@@ -1,8 +1,8 @@
 ---
 - hosts: 127.0.0.1
   tasks:
-  - name: sl is absent
+  - name: apt upgrade
     apt:
-      name: sl
-      state: latest
+      update_cache: yes
+      upgrade: dist
     become: true
