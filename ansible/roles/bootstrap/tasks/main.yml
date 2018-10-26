@@ -17,3 +17,34 @@
     name: awscli
     state: latest
   become: true
+
+- name: wheel group is present
+  group:
+    name: wheel
+    state: present
+  become: true
+
+- name: wheel group has passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%wheel'
+    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
+  become: true
+
+- name: dave user is present
+  user:
+    name: dave
+    groups:
+    - wheel
+    append: yes
+    shell: /bin/bash
+  become: true
+
+- name: dave ssh key is present
+  authorized_key:
+    user: dave
+    state: present
+    key: "{{ lookup('file', '/home/dave/.ssh/id_rsa.pub') }}"
+  become: true
