@@ -1,7 +1,7 @@
 resource "aws_cloudwatch_event_rule" "pis-ssm-daily" {
   name                = "pis-ssm-daily"
   description         = "Run the pis-ssm-daily playbook on all pis"
-  schedule_expression = "rate(1 days)"
+  schedule_expression = "rate(1 day)"
 }
 
 resource "aws_cloudwatch_event_target" "pis-ssm-daily" {
