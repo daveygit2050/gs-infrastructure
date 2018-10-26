@@ -4,13 +4,16 @@
     update_cache: yes
   become: true
 
-- name: ensure pip is latest
+- name: required packages are latest
   apt:
-    name: python-pip
+    name:
+    - ansible
+    - python-pip
     state: latest
   become: true
 
-- name: ensure awscli is latest
+- name: awscli is latest
   pip:
     name: awscli
     state: latest
+  become: true
