@@ -10,4 +10,5 @@
     user:
       name: pi
       state: absent
+      force: yes
     become: true
