@@ -6,3 +6,7 @@
       update_cache: yes
       upgrade: dist
     become: true
+  - name: pi user is absent
+    user:
+      name: pi
+      state: absent
