@@ -10,3 +10,4 @@
     user:
       name: pi
       state: absent
+    become: true
