@@ -1,0 +1,8 @@
+---
+- hosts: 127.0.0.1
+  tasks:
+  - name: run kubeadm init
+    shell: kubeadm init --pod-network-cidr 10.244.0.0/16
+    register: init
+  - debug:
+      var: init.stdout_lines
