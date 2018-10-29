@@ -39,3 +39,22 @@ Run `bootstrap.sh`, with the desired hostname and IP address of the Pi as argume
 ```
 
 This will bootstrap the Pi with Ansible and register it with AWS Systems Manager.
+
+## Playbook operations
+
+Playbooks can be either scheduled or manually triggered.
+
+### Scheduled playbooks
+
+Playbooks are scheduled by deploying an SSM assocation with terraform. At present, only the `ansible/pis-ssm-daily.yml` playbook is executed on all pis on a daily basis.
+
+### Manual playbooks
+
+All the playbooks within the `ansible` directory starting with `pis-ssm` can be manually executed. In order to manually execute a playbook, run `pipenv run scripts/run-playbook.py {playbook-name}`. You can also pass in the following optional parameters...
+
+* `--branch` - use this if the version of the playbook you want to run is in a branch other than `master`
+* `--names` - if you want to filter the playbook to only run on certain pis, use this to specify them by name. Multiple pis can be specified by comma seperating them 
+
+## Todo
+
+* Automatically create tags on managed instance after registration
