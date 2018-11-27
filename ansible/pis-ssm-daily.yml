@@ -12,22 +12,23 @@
       state: absent
       force: yes
     become: true
+  - name: required apt keys are present
+    apt_key:
+      url:
+      - "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
+      - "https://download.docker.com/linux/debian/gpg"
+    become: true
+  - name: required apt repos are present
+    apt_repository:
+      repo:
+      - "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+      - "deb [arch=armhf] https://download.docker.com/linux/debian stretch stable"
+    become: true
   - name: required packages are latest
     apt:
       name:
       - vim
-      state: latest
-    become: true
-  - name: kubernetes apt key is present
-    apt_key:
-      url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
-    become: true
-  - name: kubernetes apt repo is present
-    apt_repository:
-      repo: "deb http://apt.kubernetes.io/ kubernetes-xenial main"
-    become: true
-  - name: kubeadm is latest
-    apt:
-      name: kubeadm
+      - kubeadm
+      - docker-ce
       state: latest
     become: true

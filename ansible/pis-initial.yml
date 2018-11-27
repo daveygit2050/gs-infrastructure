@@ -3,3 +3,4 @@
   roles:
   - bootstrap
   - ssm-activation
+  - disable-swap
