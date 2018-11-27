@@ -14,15 +14,17 @@
     become: true
   - name: required apt keys are present
     apt_key:
-      url:
-      - "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
-      - "https://download.docker.com/linux/debian/gpg"
+      url: "{{ item }}"
+    loop:
+    - "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
+    - "https://download.docker.com/linux/debian/gpg"
     become: true
   - name: required apt repos are present
     apt_repository:
-      repo:
-      - "deb http://apt.kubernetes.io/ kubernetes-xenial main"
-      - "deb [arch=armhf] https://download.docker.com/linux/debian stretch stable"
+      repo: "{{ item }}"
+    loop:
+    - "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+    - "deb [arch=armhf] https://download.docker.com/linux/debian stretch stable"
     become: true
   - name: required packages are latest
     apt:
