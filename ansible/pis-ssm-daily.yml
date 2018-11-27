@@ -12,6 +12,12 @@
       state: absent
       force: yes
     become: true
+  - name: required packages are latest
+    apt:
+      name:
+      - vim
+      state: latest
+    become: true
   - name: kubernetes apt key is present
     apt_key:
       url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
