@@ -1,4 +1,9 @@
 ---
+- name: hostname is correct
+  hostname:
+    name: "{{ inventory_hostname }}"
+  become: true
+
 - name: apt update
   apt:
     update_cache: yes
