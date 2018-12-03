@@ -35,6 +35,6 @@
     become: true
   - name: docker package is supported version
     apt:
-      name: docker-ce=18.06.1~ce~3-0~ubuntu
+      name: docker-ce=18.06.1~ce~3-0~debian
       state: present
     become: true
