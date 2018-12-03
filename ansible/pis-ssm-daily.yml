@@ -31,6 +31,6 @@
       name:
       - vim
       - kubeadm
-      - docker-ce
+      - docker-ce=18.06.1~ce~3-0~ubuntu
       state: latest
     become: true
