@@ -31,6 +31,9 @@
       name:
       - vim
       - kubeadm
-      - docker-ce=18.06.1~ce~3-0~ubuntu
       state: latest
+    become: true
+  - name: docker package is supported version
+    apt:
+      name: docker-ce=18.06.1~ce~3-0~ubuntu
     become: true
