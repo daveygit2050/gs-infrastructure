@@ -38,7 +38,8 @@
       name: docker-ce=18.06.1~ce~3-0~debian
       state: present
     become: true
-  - dpkg_selections:
+  - name: docker will not be upgraded
+    dpkg_selections:
       name: docker-ce
       selection: hold
     become: true
