@@ -56,6 +56,15 @@ All the playbooks within the `ansible` directory starting with `pis-ssm` can be 
 * `--branch` - use this if the version of the playbook you want to run is in a branch other than `master`
 * `--names` - if you want to filter the playbook to only run on certain pis, use this to specify them by name. Multiple pis can be specified by comma seperating them
 
+## Kubernetes setup
+
+This is currently done manually.
+
+1. On the master (generally `pi01`), run `sudo kubeadm init --pod-network-cidr 10.244.0.0/16`
+1. Run the commands indicated after setup is complete
+1. Install the flannel CNI with `kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml`
+1. Run the `kubeadmin join` command on the remaining pis
+
 ## Todo
 
 * Automatically create tags on managed instance after registration
