@@ -1,0 +1,15 @@
+---
+- name: swapfile is off
+  shell: dphys-swapfile swapoff
+  become: true
+
+- name: swapfile is uninstalled
+  shell: dphys-swapfile uninstall
+  become: true
+
+- name: dphys-swapfile is disabled
+  service:
+    name: dphys-swapfile
+    enabled: no
+    state: stopped
+  become: true

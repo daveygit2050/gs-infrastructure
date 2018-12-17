@@ -17,6 +17,7 @@ Follow these steps to add a new Raspberry Pi to the cluster.
 1. Insert the micro SD card into the Pi and boot it up
 1. Login as the `pi` user (default password `raspberry`)
 1. Modify `/etc/dhcpcd.conf`, adding static IP address config (example below) to the bottom of the file
+1. Modify `/boot/cmdline.txt` to include `cgroup_enable=memory` after `rootfstype` is defined
 1. Use `sudo raspi-config` to enable SSH server
 1. Reboot the Pi, or shut it down so it can be connected to the cluster
 
@@ -53,7 +54,16 @@ Playbooks are scheduled by deploying an SSM assocation with terraform. At presen
 All the playbooks within the `ansible` directory starting with `pis-ssm` can be manually executed. In order to manually execute a playbook, run `pipenv run scripts/run-playbook.py {playbook-name}`. You can also pass in the following optional parameters...
 
 * `--branch` - use this if the version of the playbook you want to run is in a branch other than `master`
-* `--names` - if you want to filter the playbook to only run on certain pis, use this to specify them by name. Multiple pis can be specified by comma seperating them 
+* `--names` - if you want to filter the playbook to only run on certain pis, use this to specify them by name. Multiple pis can be specified by comma seperating them
+
+## Kubernetes setup
+
+This is currently done manually.
+
+1. On the master (generally `pi01`), run `sudo kubeadm init --pod-network-cidr 10.244.0.0/16`
+1. Run the commands indicated after setup is complete
+1. Install the flannel CNI with `kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml`
+1. Run the `kubeadmin join` command on the remaining pis
 
 ## Todo
 
