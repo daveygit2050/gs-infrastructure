@@ -7,7 +7,7 @@ Follow these steps to add a new Raspberry Pi to the cluster.
 
 ### Create Raspbian SD card
 
-1. Download the desired version of [Raspbian Stretch Lite](https://www.raspberrypi.org/downloads/raspbian/)
+1. Download the desired version of [HypriotOS](https://blog.hypriot.com/downloads/)
 1. Insert a micro SD card and use `lsblk` to determine the disk name (e.g. `mmcblk0`)
 1. Run `unzip {downloaded-file}.zip`
 1. Run `sudo ddrescue -d -D --force {extracted-file}.img /dev/{device-name}`
@@ -15,11 +15,10 @@ Follow these steps to add a new Raspberry Pi to the cluster.
 ### Perform initial operating system configuration
 
 1. Insert the micro SD card into the Pi and boot it up
-1. Login as the `pi` user (default password `raspberry`)
+1. Determine the address that has been assigned to the Pi using nmap
+1. Connect to the Pi with SSH as the `pirate` user (default password `hypriot`)
 1. Modify `/etc/dhcpcd.conf`, adding static IP address config (example below) to the bottom of the file
-1. Modify `/boot/cmdline.txt` to include `cgroup_enable=memory` after `rootfstype` is defined
-1. Use `sudo raspi-config` to enable SSH server
-1. Reboot the Pi, or shut it down so it can be connected to the cluster
+1. Reboot the Pi
 
 #### Example static IP address configuration
 
@@ -60,9 +59,9 @@ All the playbooks within the `ansible` directory starting with `pis-ssm` can be 
 
 This is currently done manually.
 
-1. On the master (generally `pi01`), run `sudo kubeadm init --pod-network-cidr 10.244.0.0/16`
+1. On the master (generally `pi01`), run `sudo kubeadm init --apiserver-advertise-address {master-ip-address}`
 1. Run the commands indicated after setup is complete
-1. Install the flannel CNI with `kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml`
+1. Install the weave CNI with `kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"`
 1. Run the `kubeadmin join` command on the remaining pis
 
 ## Todo
