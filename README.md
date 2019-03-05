@@ -59,9 +59,9 @@ All the playbooks within the `ansible` directory starting with `pis-ssm` can be 
 
 This is currently done manually.
 
-1. On the master (generally `pi01`), run `sudo kubeadm init --pod-network-cidr 10.244.0.0/16`
+1. On the master (generally `pi01`), run `sudo kubeadm init --apiserver-advertise-address {master-ip-address}`
 1. Run the commands indicated after setup is complete
-1. Install the flannel CNI with `kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml`
+1. Install the weave CNI with `kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"`
 1. Run the `kubeadmin join` command on the remaining pis
 
 ## Todo
