@@ -59,10 +59,16 @@ All the playbooks within the `ansible` directory starting with `pis-ssm` can be 
 
 This is currently done manually.
 
+### Master configuration
+
 1. On the master (generally `pi01`), run `sudo kubeadm init --apiserver-advertise-address {master-ip-address}`
 1. Run the commands indicated after setup is complete
 1. Install the weave CNI with `kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"`
-1. Run the `kubeadmin join` command on the remaining pis
+1. Install and configure [MetalLB](https://metallb.universe.tf/tutorial/layer2/)
+
+### Node configuration
+
+Run the `kubeadmin join` command on the remaining pis. It can be generated on the master with `kubeadm token create --print-join-command`.
 
 ## Todo
 
