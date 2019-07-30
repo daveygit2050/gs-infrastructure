@@ -64,11 +64,23 @@ This is currently done manually.
 1. On the master (generally `pi01`), run `sudo kubeadm init --apiserver-advertise-address {master-ip-address}`
 1. Run the commands indicated after setup is complete
 1. Install the weave CNI with `kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"`
-1. Install and configure [MetalLB](https://metallb.universe.tf/tutorial/layer2/)
+1. Install and configure [MetalLB](https://metallb.universe.tf/tutorial/layer2/), using `./kube/config/metallb/config.yaml` for the config map
 
 ### Node configuration
 
 Run the `kubeadmin join` command on the remaining pis. It can be generated on the master with `kubeadm token create --print-join-command`.
+
+### Service configuration
+
+Before running the below, copy the contents of the `kube` folder to the home directory on the master.
+
+#### Jenkins
+
+The jenkins master needs to be locked to a specific node so that configuration can be persisted to disk. 
+
+1. Run `kubectl label nodes {node} gs-type=jenkins-master`
+1. Run `kubectl apply -f ~/kube/manifests/jenkins.yaml`
+1. Use `kubectl get services --namespace jenkins` to find the load balancer address (the `EXTERNAL_IP`)
 
 ## Todo
 
