@@ -1,6 +1,3 @@
-# kubectl create secret generic pihole-secrets --from-file admin-password -n pihole
-# kubectl create configmap gs-int --from-file 02-gs-int.conf --from-file gs-int.list -n pihole
-
 ---
 apiVersion: v1
 kind: Namespace
@@ -37,7 +34,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: pihole-secrets
-              key: admin-password.txt
+              key: admin-password
         volumeMounts:
         - name: gs-int
           mountPath: /etc/dnsmasq.d/02-gs-int.conf

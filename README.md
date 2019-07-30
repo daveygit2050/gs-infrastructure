@@ -82,6 +82,16 @@ The jenkins master needs to be locked to a specific node so that configuration c
 1. Run `kubectl apply -f ~/kube/manifests/jenkins.yaml`
 1. Use `kubectl get services --namespace jenkins` to find the load balancer address (the `EXTERNAL_IP`)
 
+#### Pi-hole
+
+Firstly, create a file in `~/.kube/config/pihole/` called `admin-password`, that contains the desired password for the pihole admin endpoint. Modifiy the `gs-int.list` file with the appropriate record configuration.
+
+1. Run `kubectl create namespace pihole`
+1. Set the working directory to `~/.kube/config/pihole/`
+1. Run `kubectl create secret generic pihole-secrets --from-file admin-password -n pihole`
+1. Run `kubectl create configmap gs-int --from-file 02-gs-int.conf --from-file gs-int.list -n pihole`
+1. Run `kubectl apply -f ~/kube/manifests/pihole.yaml`
+
 ## Todo
 
 * Automatically create tags on managed instance after registration
