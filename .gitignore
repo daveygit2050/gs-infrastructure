@@ -4,3 +4,7 @@ tf.plan
 
 # ansible
 *.retry
+
+# ide
+.vscode/
+
