@@ -1,5 +1,5 @@
 192.168.0.1     router.gs.int   router
 192.168.0.201   pi01.gs.int     pi01
 192.168.0.202   pi02.gs.int     pi02
-192.168.0.210   jenkins.gs.int  jenkins
-192.168.0.214   dns.gs.int      dns
+192.168.0.210   dns.gs.int      dns
+192.168.0.211   jenkins.gs.int  jenkins

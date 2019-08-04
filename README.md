@@ -84,13 +84,25 @@ The jenkins master needs to be locked to a specific node so that configuration c
 
 #### Pi-hole
 
-Firstly, create a file in `~/.kube/config/pihole/` called `admin-password`, that contains the desired password for the pihole admin endpoint. Modifiy the `gs-int.list` file with the appropriate record configuration.
+##### Initial setup
+
+Firstly, create a file in `~/kube/config/pihole/` called `admin-password`, that contains the desired password for the pihole admin endpoint. Modifiy the `gs-int.list` file with the appropriate record configuration.
 
 1. Run `kubectl create namespace pihole`
-1. Set the working directory to `~/.kube/config/pihole/`
+1. Set the working directory to `~/kube/config/pihole/`
 1. Run `kubectl create secret generic pihole-secrets --from-file admin-password -n pihole`
 1. Run `kubectl create configmap gs-int --from-file 02-gs-int.conf --from-file gs-int.list -n pihole`
 1. Run `kubectl apply -f ~/kube/manifests/pihole.yaml`
+
+##### Updating gs.int records
+
+The below process involves replaceing the existing config map with a new one that includes the desired changes. Once the new config map is in place, the pod needs to be recycled for the new file to be deployed. This results in a small period of down time for the service.
+
+1. Make required changes to `kube/config/pihole/gs-int.list`
+1. Upload amended file to `~/kube/config/pihole/`
+1. Run `kubectl delete configmaps/gs-int --namespace pihole`
+1. Run `kubectl create configmap gs-int --from-file ~/kube/config/pihole/02-gs-int.conf --from-file ~/kube/config/pihole/gs-int.list --namespace pihole`
+1. Run `kubectl get pods --namespace pihole | grep pihole | awk '{print $1}' | xargs kubectl delete pod --namespace pihole`
 
 ## Todo
 
