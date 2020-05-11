@@ -7,7 +7,7 @@ Follow these steps to add a new Raspberry Pi to the cluster.
 
 ### Create Raspbian SD card
 
-1. Download the desired version of [HypriotOS](https://blog.hypriot.com/downloads/)
+1. Download the desired version of [Raspbian](https://www.raspberrypi.org/downloads/raspbian/)
 1. Insert a micro SD card and use `lsblk` to determine the disk name (e.g. `mmcblk0`)
 1. Run `unzip {downloaded-file}.zip`
 1. Run `sudo ddrescue -d -D --force {extracted-file}.img /dev/{device-name}`
@@ -16,7 +16,7 @@ Follow these steps to add a new Raspberry Pi to the cluster.
 
 1. Insert the micro SD card into the Pi and boot it up
 1. Determine the address that has been assigned to the Pi using nmap
-1. Connect to the Pi with SSH as the `pirate` user (default password `hypriot`)
+1. Connect to the Pi with SSH as the `pi` user (default password `raspberry`)
 1. Modify `/etc/dhcpcd.conf`, adding static IP address config (example below) to the bottom of the file
 1. Reboot the Pi
 

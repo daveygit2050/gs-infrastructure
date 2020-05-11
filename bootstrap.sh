@@ -20,4 +20,4 @@ ACTIVATION_ID=`echo ${SSM_RESULT} | jq '.ActivationId'`
 ACTIVATION_CODE=`echo ${SSM_RESULT} | jq '.ActivationCode'`
 
 echo "Running Ansible playbook"
-ansible-playbook -i inventories/pis -u pirate -k -l ${PI_HOSTNAME} --extra-vars "activation_code=${ACTIVATION_CODE} activation_id=${ACTIVATION_ID}" pis-initial.yml
+ansible-playbook -i inventories/pis -u pi -k -l ${PI_HOSTNAME} --extra-vars "activation_code=${ACTIVATION_CODE} activation_id=${ACTIVATION_ID}" --ask-become-pass pis-initial.yml
