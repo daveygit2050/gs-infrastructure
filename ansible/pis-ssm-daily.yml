@@ -6,12 +6,6 @@
       update_cache: yes
       upgrade: dist
     become: true
-  - name: pi user is absent
-    user:
-      name: pi
-      state: absent
-      force: yes
-    become: true
   - name: required packages are latest
     apt:
       name:

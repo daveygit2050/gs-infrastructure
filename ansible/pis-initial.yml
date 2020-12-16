@@ -3,4 +3,3 @@
   roles:
   - bootstrap
   - ssm-activation
-  - k8s
