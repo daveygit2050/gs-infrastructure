@@ -2,4 +2,4 @@
 - hosts: pis
   roles:
   - general
-
+  - k8s

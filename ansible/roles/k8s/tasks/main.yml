@@ -1,0 +1,14 @@
+---
+- name: cgroups
+  lineinfile:
+    backrefs: yes
+    line: cgroup_enable=memory cgroup_memory=1 \2
+    path: /boot/firmware/cmdline.txt
+    regexp: ^(cgroup_enable=memory cgroup_memory=1 )?(.*)$
+  become: true
+  register: cgroups
+
+- name: reboot
+  reboot:
+  become: true
+  when: cgroups.changed
