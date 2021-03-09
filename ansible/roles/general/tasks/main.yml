@@ -1,0 +1,7 @@
+---
+- name: apt update and upgrade
+  apt:
+    cache_valid_time: 86400
+    update_cache: yes
+    upgrade: "yes"
+  become: true
