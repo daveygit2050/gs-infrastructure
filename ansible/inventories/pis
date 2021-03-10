@@ -1,3 +1,4 @@
 [pis]
-
 pi01 ansible_host=192.168.0.201
+pi02 ansible_host=192.168.0.202
+pi03 ansible_host=192.168.0.203
