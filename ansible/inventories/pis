@@ -1,4 +1,7 @@
+[all:vars]
+needs_swap=false
+
 [pis]
 pi01 ansible_host=192.168.0.201
-pi02 ansible_host=192.168.0.202
-pi03 ansible_host=192.168.0.203
+pi02 ansible_host=192.168.0.202 needs_swap=true
+pi03 ansible_host=192.168.0.203 needs_swap=true

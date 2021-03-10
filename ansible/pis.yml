@@ -1,5 +1,7 @@
 ---
 - hosts: pis
   roles:
-  - general
-  - k8s
+  - role: general
+  - role: swap
+    when: needs_swap|bool == True
+  - role: k8s
