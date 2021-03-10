@@ -1,5 +1,5 @@
 ---
-- name: cgroups
+- name: cgroups are enabled
   lineinfile:
     backrefs: yes
     line: cgroup_enable=memory cgroup_memory=1 \2
@@ -8,7 +8,22 @@
   become: true
   register: cgroups
 
-- name: reboot
+- name: reboot to apply cgroup changes
   reboot:
   become: true
   when: cgroups.changed
+
+- name: microk8s is installed
+  community.general.snap:
+    name: microk8s
+    # 1.19 not installable on Pi 3, see https://forum.snapcraft.io/t/unable-to-install-microk8s-on-raspberrypi-due-to-configuration-hook-timeout/19877
+    channel: 1.18/stable
+    classic: yes
+  become: true
+
+- name: dave is member of microk8s
+  user:
+    name: dave
+    groups: [microk8s]
+    append: yes
+  become: true
