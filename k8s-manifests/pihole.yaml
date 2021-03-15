@@ -64,6 +64,7 @@ metadata:
   annotations:
     metallb.universe.tf/allow-shared-ip: "true"
 spec:
+  externalTrafficPolicy: Local
   loadBalancerIP: 192.168.0.210
   ports:
   - name: dns-tcp
@@ -88,6 +89,7 @@ metadata:
   annotations:
     metallb.universe.tf/allow-shared-ip: "true"
 spec:
+  externalTrafficPolicy: Local
   loadBalancerIP: 192.168.0.210
   ports:
   - name: dns-udp
