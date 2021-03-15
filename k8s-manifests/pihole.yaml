@@ -29,12 +29,12 @@ spec:
         - containerPort: 53
         - containerPort: 80
         - containerPort: 443
-        # env:
-        # - name: WEBPASSWORD
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: pihole-secrets
-        #       key: admin-password
+        env:
+        - name: WEBPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: pihole-secrets
+              key: admin-password
         # volumeMounts:
         # - name: gs-int
         #   mountPath: /etc/dnsmasq.d/02-gs-int.conf

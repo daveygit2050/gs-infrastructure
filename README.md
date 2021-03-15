@@ -52,3 +52,8 @@ Use `apply.sh` to keep everything up to date.
 
 1. Copy the appropriate manifest file from `k8s-manifests\` to pi01.
 1. Run `microk8s kubectl apply -f ${manifest-name}.yml`.
+
+### Pihole
+
+1. Create a secret for the admin password: `microk8s kubectl create secret generic pihole-secrets --from-literal=admin-password='foo-password' --namespace pihole`
+2. Apply the `pihole.yaml` manifest as above.
