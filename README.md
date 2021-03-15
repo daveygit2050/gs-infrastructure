@@ -47,3 +47,8 @@ This will bootstrap the Pi with Ansible and register it with AWS Systems Manager
 ## Applying state changes
 
 Use `apply.sh` to keep everything up to date.
+
+## Managing k8s resources
+
+1. Copy the appropriate manifest file from `k8s-manifests\` to pi01.
+1. Run `microk8s kubectl apply -f ${manifest-name}.yml`.

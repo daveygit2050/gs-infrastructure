@@ -1,0 +1,98 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pihole
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pihole
+  namespace: pihole
+  labels:
+    app: pihole
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pihole
+  template:
+    metadata:
+      labels:
+        app: pihole
+    spec:
+      containers:
+      - name: pihole
+        image: pihole/pihole:master-arm64-buster
+        ports:
+        - containerPort: 53
+        - containerPort: 80
+        - containerPort: 443
+        # env:
+        # - name: WEBPASSWORD
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: pihole-secrets
+        #       key: admin-password
+        # volumeMounts:
+        # - name: gs-int
+        #   mountPath: /etc/dnsmasq.d/02-gs-int.conf
+        #   subPath: 02-gs-int.conf
+        # - name: gs-int
+        #   mountPath: /var/gs-int.list
+        #   subPath: gs-int.list
+      dnsConfig:
+        nameservers:
+        - 127.0.0.1
+        - 8.8.8.8
+        - 8.8.4.4
+      # nodeSelector:
+      #   beta.kubernetes.io/arch: arm
+      # restartPolicy: Always
+      # volumes:
+      # - name: gs-int
+      #   configMap:
+      #     name: gs-int
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pihole-tcp
+  namespace: pihole
+  annotations:
+    metallb.universe.tf/allow-shared-ip: "true"
+spec:
+  loadBalancerIP: 192.168.0.210
+  ports:
+  - name: dns-tcp
+    port: 53
+    protocol: TCP
+  - name: http-tcp
+    port: 80
+    protocol: TCP
+  - name: https-tcp
+    port: 443
+    protocol: TCP
+  selector:
+    app: pihole
+  type: LoadBalancer
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pihole-udp
+  namespace: pihole
+  annotations:
+    metallb.universe.tf/allow-shared-ip: "true"
+spec:
+  loadBalancerIP: 192.168.0.210
+  ports:
+  - name: dns-udp
+    port: 53
+    protocol: UDP
+  selector:
+    app: pihole
+  type: LoadBalancer

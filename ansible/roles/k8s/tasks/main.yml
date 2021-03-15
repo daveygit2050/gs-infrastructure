@@ -46,3 +46,7 @@
 - name: leafs nodes have been joined to cluster
   command: "{{ hostvars['pi01']['join_commands'][inventory_hostname] }}"
   when: controller|bool == False
+
+- name: metallb is enabled
+  command: microk8s enable metallb:192.168.0.210-192.168.0.219
+  when: controller|bool == True
