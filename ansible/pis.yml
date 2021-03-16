@@ -3,6 +3,4 @@
   gather_facts: no
   roles:
   - role: general
-  - role: swap
-    when: needs_swap|bool == True
   - role: k8s
