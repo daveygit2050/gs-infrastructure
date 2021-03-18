@@ -1,5 +1,9 @@
 [all:vars]
 controller=false
 
-[pis]
+[k8s]
 pi01 ansible_host=192.168.0.201 controller=true
+
+[other]
+pi02 ansible_host=192.168.0.202
+pi03 ansible_host=192.168.0.203

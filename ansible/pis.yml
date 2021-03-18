@@ -1,6 +1,9 @@
 ---
-- hosts: pis
+- hosts: all
   gather_facts: no
   roles:
   - role: general
+- hosts: k8s
+  gather_facts: no
+  roles:
   - role: k8s
